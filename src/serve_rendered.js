@@ -237,7 +237,8 @@ module.exports = function(options, repo, params, id, dataResolver) {
         map.sources[name] = new mbtiles(mbtilesFile, function(err) {
           map.sources[name].getInfo(function(err, info) {
             if (err) {
-              console.error(err);
+              console.error('Failed to get info for source: ' + name);
+              console.error(err.trace);
               return;
             }
 
@@ -350,7 +351,8 @@ module.exports = function(options, repo, params, id, dataResolver) {
       renderer.render(params, function(err, data) {
         pool.release(renderer);
         if (err) {
-          console.error(err);
+          console.error('Failed to render: ' + id);
+          console.error(err.stack);
           return;
         }
 
